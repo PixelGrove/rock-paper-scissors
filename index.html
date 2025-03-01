@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보 게임</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        button {
+            font-size: 18px;
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #score {
+            font-size: 18px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>가위바위보 게임</h1>
+    <p>버튼을 클릭하여 게임을 시작하세요!</p>
+
+    <button onclick="playRound('rock')">바위 ✊</button>
+    <button onclick="playRound('paper')">보 ✋</button>
+    <button onclick="playRound('scissors')">가위 ✌</button>
+
+    <div id="result"></div>
+    <div id="score">사용자 점수: 0 | 컴퓨터 점수: 0</div>
+
+    <script>
+        let humanScore = 0;
+        let computerScore = 0;
+
+        function getComputerChoice() {
+            let choices = ["rock", "paper", "scissors"];
+            return choices[Math.floor(Math.random() * 3)];
+        }
+
+        function playRound(humanChoice) {
+            let computerChoice = getComputerChoice();
+            let resultText = "";
+
+            if (humanChoice === computerChoice) {
+                resultText = `무승부! 두 플레이어가 ${humanChoice}를 선택했습니다.`;
+            } else if (
+                (humanChoice === "rock" && computerChoice === "scissors") ||
+                (humanChoice === "scissors" && computerChoice === "paper") ||
+                (humanChoice === "paper" && computerChoice === "rock")
+            ) {
+                humanScore++;
+                resultText = `🎉 승리! ${humanChoice}가 ${computerChoice}를 이깁니다.`;
+            } else {
+                computerScore++;
+                resultText = `😢 패배! ${computerChoice}가 ${humanChoice}를 이깁니다.`;
+            }
+
+            document.getElementById("result").innerText = resultText;
+            document.getElementById("score").innerText = `사용자 점수: ${humanScore} | 컴퓨터 점수: ${computerScore}`;
+        }
+    </script>
+</body>
+</html>
